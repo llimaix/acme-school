@@ -1,0 +1,23 @@
+-- ============================================================
+-- ACME SCHOOL - Sistema de Gestión Académica
+-- Script: 05_deadlock_escenario.sql
+-- Descripción: Reproducción de deadlock ORA-00060
+-- Responsable: Wuili
+-- Tarea: T-016
+-- ============================================================
+
+-- Escenario: Dos sesiones actualizan secciones en orden inverso
+--
+-- Sesión A:
+--   UPDATE seccion SET cupo_disponible = cupo_disponible - 1 WHERE seccion_id = 1;
+--   -- espera...
+--   UPDATE seccion SET cupo_disponible = cupo_disponible - 1 WHERE seccion_id = 2;
+--
+-- Sesión B:
+--   UPDATE seccion SET cupo_disponible = cupo_disponible - 1 WHERE seccion_id = 2;
+--   -- espera...
+--   UPDATE seccion SET cupo_disponible = cupo_disponible - 1 WHERE seccion_id = 1;
+--
+-- Resultado esperado: ORA-00060: deadlock detected while waiting for resource
+
+-- TODO: Implementar con dos sesiones reales

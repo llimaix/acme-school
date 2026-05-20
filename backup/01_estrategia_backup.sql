@@ -1,0 +1,22 @@
+-- ============================================================
+-- ACME SCHOOL - Sistema de Gestión Académica
+-- Script: 01_estrategia_backup.sql
+-- Descripción: Estrategia de backup Oracle (RMAN + Data Pump)
+-- Responsable: Luis
+-- Tarea: T-025
+-- ============================================================
+
+-- Estrategia definida:
+--   1. Backup completo semanal (RMAN)
+--   2. Backup incremental diario (RMAN)
+--   3. Export lógico (Data Pump) como complemento
+--
+-- Comandos RMAN ejemplo:
+--   BACKUP DATABASE;
+--   BACKUP INCREMENTAL LEVEL 1 DATABASE;
+--   BACKUP ARCHIVELOG ALL;
+--
+-- Data Pump ejemplo:
+--   expdp usuario/pass DIRECTORY=backup_dir DUMPFILE=acme_school.dmp SCHEMAS=acme_school
+
+-- TODO: Implementar después de T-004

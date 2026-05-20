@@ -1,0 +1,21 @@
+-- ============================================================
+-- ACME SCHOOL - Sistema de Gestión Académica
+-- Script: 02_archivelog_config.sql
+-- Descripción: Configuración de ARCHIVELOG para recovery
+-- Responsable: Luis
+-- Tarea: T-026
+-- ============================================================
+
+-- Habilitar ARCHIVELOG (requiere reinicio de BD):
+--   SHUTDOWN IMMEDIATE;
+--   STARTUP MOUNT;
+--   ALTER DATABASE ARCHIVELOG;
+--   ALTER DATABASE OPEN;
+--
+-- Verificar:
+--   ARCHIVE LOG LIST;
+--   SELECT LOG_MODE FROM V$DATABASE;
+--
+-- Esto permite recuperación point-in-time usando archived redo logs
+
+-- TODO: Implementar en ambiente Oracle

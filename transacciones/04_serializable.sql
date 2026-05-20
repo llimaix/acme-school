@@ -1,0 +1,25 @@
+-- ============================================================
+-- ACME SCHOOL - Sistema de Gestión Académica
+-- Script: 04_serializable.sql
+-- Descripción: Demostración de aislamiento SERIALIZABLE
+-- Responsable: Wuili
+-- Tarea: T-015
+-- ============================================================
+
+-- Requiere DOS sesiones Oracle simultáneas
+-- Usar: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+--
+-- Sesión A:
+--   SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+--   SELECT cupo_disponible FROM seccion WHERE seccion_id = X;
+--   UPDATE seccion SET cupo_disponible = cupo_disponible - 1 WHERE seccion_id = X;
+--
+-- Sesión B:
+--   SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+--   SELECT cupo_disponible FROM seccion WHERE seccion_id = X;
+--   UPDATE seccion SET cupo_disponible = cupo_disponible - 1 WHERE seccion_id = X;
+--   -- Posible error: ORA-08177 can't serialize access for this transaction
+--
+-- Documentar comportamiento y diferencia con READ COMMITTED
+
+-- TODO: Implementar con dos sesiones reales

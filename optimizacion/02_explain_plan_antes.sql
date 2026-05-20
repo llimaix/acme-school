@@ -1,0 +1,21 @@
+-- ============================================================
+-- ACME SCHOOL - Sistema de Gestión Académica
+-- Script: 02_explain_plan_antes.sql
+-- Descripción: EXPLAIN PLAN antes de optimizar
+-- Responsable: Julian
+-- Tarea: T-034
+-- ============================================================
+
+-- Método:
+--   EXPLAIN PLAN FOR <consulta>;
+--   SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
+--
+-- Registrar para cada consulta:
+--   - Plan de ejecución
+--   - Costo estimado
+--   - Filas estimadas
+--   - Ruta de acceso (TABLE ACCESS FULL, INDEX SCAN, etc.)
+--
+-- SET TIMING ON para medir tiempos (T-035)
+
+-- TODO: Implementar después de T-033

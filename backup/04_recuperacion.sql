@@ -1,0 +1,26 @@
+-- ============================================================
+-- ACME SCHOOL - Sistema de Gestión Académica
+-- Script: 04_recuperacion.sql
+-- Descripción: Recuperación de datos desde backup/log
+-- Responsable: Luis
+-- Tarea: T-028
+-- ============================================================
+
+-- Opciones de recuperación:
+--
+-- 1. RMAN Point-in-Time Recovery:
+--    RMAN> RUN {
+--      SET UNTIL TIME "TO_DATE('2025-XX-XX HH24:MI:SS','YYYY-MM-DD HH24:MI:SS')";
+--      RESTORE DATABASE;
+--      RECOVER DATABASE;
+--    }
+--    ALTER DATABASE OPEN RESETLOGS;
+--
+-- 2. Flashback (si está habilitado):
+--    FLASHBACK TABLE inscripcion TO TIMESTAMP (SYSTIMESTAMP - INTERVAL '1' HOUR);
+--
+-- Verificación:
+--   SELECT COUNT(*) FROM inscripcion WHERE periodo_id = X;
+--   -- Debe coincidir con el conteo previo a la pérdida
+
+-- TODO: Implementar después de T-027

@@ -1,0 +1,27 @@
+-- ============================================================
+-- ACME SCHOOL - Sistema de Gestión Académica
+-- Script: 03_read_committed.sql
+-- Descripción: Demostración de aislamiento READ COMMITTED
+-- Responsable: Wuili
+-- Tarea: T-014
+-- ============================================================
+
+-- Requiere DOS sesiones Oracle simultáneas
+-- Oracle usa READ COMMITTED por defecto
+--
+-- Sesión A:
+--   1. Inicia transacción
+--   2. Modifica datos (UPDATE inscripción/nota)
+--   3. NO hace COMMIT aún
+--
+-- Sesión B:
+--   1. Consulta los mismos datos
+--   2. NO ve los cambios no confirmados de A
+--
+-- Sesión A:
+--   3. COMMIT
+--
+-- Sesión B:
+--   3. Ahora SÍ ve los cambios confirmados
+
+-- TODO: Implementar con dos sesiones reales

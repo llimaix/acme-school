@@ -1,0 +1,26 @@
+-- ============================================================
+-- ACME SCHOOL - Sistema de Gestión Académica
+-- Script: 03_kpis_indicadores.sql
+-- Descripción: Indicadores estratégicos académicos (KPIs)
+-- Responsable: Julian
+-- Tareas: T-042, T-043
+-- ============================================================
+
+-- KPIs mínimos requeridos (3+):
+--
+-- 1. TASA DE APROBACIÓN por curso/período
+--    = (estudiantes aprobados / total inscritos) * 100
+--
+-- 2. PROMEDIO DE NOTAS por curso/docente
+--    = AVG(promedio_nota) agrupado por curso o docente
+--
+-- 3. INSCRIPCIONES POR PERÍODO
+--    = COUNT(inscripciones) agrupado por período
+--
+-- Adicionales sugeridos:
+--   4. Tasa de deserción (retirados / inscritos)
+--   5. Carga docente (secciones por docente por período)
+--
+-- IMPORTANTE: Los KPIs deben salir del DW, no solo de la base operacional
+
+-- TODO: Implementar después de T-041
