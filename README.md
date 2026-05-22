@@ -22,6 +22,8 @@ Sistema de base de datos empresarial para gestión académica (educación) que i
 | Julian | Optimización y Rendimiento, Data Warehouse y BI |
 | Luis | Documento PDF, Seguridad, Backup/Recovery, HA |
 
+📁 [Drive del equipo](https://drive.google.com/drive/folders/16rHEn51XvgTSbqQU-ugPDeBr0egviJHS?usp=drive_link) — Cada miembro sube ahí sus capturas y documentación. Ver [`docs/recursos_equipo.md`](docs/recursos_equipo.md).
+
 ## Estructura del Proyecto
 
 ```

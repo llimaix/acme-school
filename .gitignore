@@ -12,14 +12,19 @@ Thumbs.db
 node_modules/
 dist/
 build/
+
+# Environment / Secrets
 .env
 .env.local
+.env.example
+database/.env
 
 # Oracle
 *.dmp
 *.log
 *.trc
 *.aud
+database/backups/
 
 # Archivos temporales
 *.tmp
