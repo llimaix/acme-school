@@ -46,8 +46,8 @@ jobs:
         if: always()
         run: |
           if [ "${{ job.status }}" == "success" ]; then
-            echo "✅ Database deploy exitoso"
+            echo "✅ Oracle verificado y consistente"
           else
-            echo "❌ Database deploy falló"
+            echo "❌ Falló el deploy"
             exit 1
           fi
