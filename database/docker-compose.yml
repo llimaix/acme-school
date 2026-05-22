@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   oracle-db:
-    image: gvenzl/oracle-free:23-full
+    image: docker pull gvenzl/oracle-free:slim
     container_name: acme-school-db
     ports:
       - "1521:1521"
