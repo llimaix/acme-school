@@ -14,11 +14,11 @@
 
 | ID | Tarea | Responsable | Estado |
 |----|-------|-------------|--------|
-| T-001 | Confirmar alcance del sistema | Luis | ⬜ No iniciada |
-| T-002 | Definir Oracle PL/SQL como motor | Luis | ⬜ No iniciada |
-| T-003 | Crear repositorio y estructura | Wuili | ⬜ No iniciada |
-| T-004 | Levantar ambiente Oracle Free/XE | Wuili | ⬜ No iniciada |
-| T-005 | Crear matriz de trazabilidad | Luis | ⬜ No iniciada |
+| T-001 | Confirmar alcance del sistema | Luis | ✅ Completada |
+| T-002 | Definir Oracle PL/SQL como motor | Luis | ✅ Completada |
+| T-003 | Crear repositorio y estructura | Wuili | ✅ Completada |
+| T-004 | Levantar ambiente Oracle Free/XE | Wuili | ✅ Completada |
+| T-005 | Crear matriz de trazabilidad | Luis | ✅ Completada |
 
 ---
 
