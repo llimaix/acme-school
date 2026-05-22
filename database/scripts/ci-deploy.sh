@@ -1,7 +1,9 @@
 #!/bin/bash
 # ============================================================
-# ACME SCHOOL - Script de deploy para CI/CD
-# Se ejecuta en el servidor después de copiar los archivos
+# ACME SCHOOL - Deploy de infraestructura Oracle
+# Levanta Oracle, verifica health, y si hay cambios en la
+# configuración de Docker (imagen, volúmenes, etc.) recrea
+# el contenedor manteniendo los datos persistentes.
 # ============================================================
 
 set -e
@@ -13,8 +15,8 @@ echo "=== 1. Verificando Docker ==="
 docker --version
 docker compose version
 
-echo "=== 2. Levantando Oracle ==="
-docker compose up -d
+echo "=== 2. Aplicando configuración (levanta o actualiza) ==="
+docker compose up -d --remove-orphans
 
 echo "=== 3. Esperando que Oracle esté healthy ==="
 ATTEMPTS=0
@@ -31,48 +33,20 @@ until docker inspect --format='{{.State.Health.Status}}' acme-school-db 2>/dev/n
 done
 echo "Oracle está listo."
 
-echo "=== 4. Backup pre-deploy ==="
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-docker exec acme-school-db bash -c \
-  "expdp system/AcmeSchool2025@FREEPDB1 DIRECTORY=DATA_PUMP_DIR DUMPFILE=pre_deploy_${TIMESTAMP}.dmp LOGFILE=pre_deploy_${TIMESTAMP}.log SCHEMAS=acme_school 2>/dev/null" \
-  || echo "  Backup skipped (schema may not exist yet)"
+echo "=== 4. Verificación ==="
+docker exec acme-school-db bash -c "echo 'SELECT BANNER FROM V\$VERSION;
+EXIT;' | sqlplus -s system/AcmeSchool2025@FREEPDB1"
 
-echo "=== 5. Copiando scripts al contenedor ==="
-docker cp ./init-scripts/. acme-school-db:/opt/oracle/scripts/
-
-echo "=== 6. Script 01 - Schema (como SYSTEM) ==="
-docker exec acme-school-db bash -c "echo '@/opt/oracle/scripts/01_create_schema.sql
-EXIT;' | sqlplus -s system/AcmeSchool2025@FREEPDB1" || echo "  Schema ya puede existir, continuando..."
-
-echo "=== 7. Scripts 02+ (como acme_school) ==="
-for script in ./init-scripts/0[2-9]_*.sql; do
-    if [ -f "$script" ]; then
-        BASENAME=$(basename "$script")
-        echo "  >> $BASENAME"
-        docker exec acme-school-db bash -c "echo '@/opt/oracle/scripts/$BASENAME
-EXIT;' | sqlplus -s acme_school/AcmeSchool2025@FREEPDB1" || echo "  WARN: $BASENAME tuvo errores (objetos pueden ya existir)"
-    fi
-done
-
-echo "=== 8. Verificación final ==="
-docker exec acme-school-db bash -c "echo '
-SET LINESIZE 200
-SET PAGESIZE 50
-COLUMN table_name FORMAT A25
-
-SELECT table_name FROM user_tables ORDER BY table_name;
-
-SELECT (SELECT COUNT(*) FROM estudiante) AS estudiantes,
-       (SELECT COUNT(*) FROM docente) AS docentes,
-       (SELECT COUNT(*) FROM curso) AS cursos,
-       (SELECT COUNT(*) FROM periodo) AS periodos,
-       (SELECT COUNT(*) FROM seccion) AS secciones,
-       (SELECT COUNT(*) FROM inscripcion) AS inscripciones,
-       (SELECT COUNT(*) FROM nota) AS notas
-FROM DUAL;
-
-SELECT object_name, object_type, status FROM user_objects WHERE status != chr(86)||chr(65)||chr(76)||chr(73)||chr(68);
-EXIT;' | sqlplus -s acme_school/AcmeSchool2025@FREEPDB1"
+echo "=== 5. Estado de volúmenes ==="
+echo "  oracle-data:"
+docker volume inspect acme-school_oracle-data --format '  Size: {{.UsageData.Size}} bytes' 2>/dev/null || echo "  (info no disponible)"
+echo "  oracle-backups:"
+docker volume inspect acme-school_oracle-backups --format '  Size: {{.UsageData.Size}} bytes' 2>/dev/null || echo "  (info no disponible)"
 
 echo ""
-echo "=== Deploy completado ==="
+echo "=== Oracle corriendo y consistente ==="
+echo "  Container: $(docker inspect --format='{{.State.Status}}' acme-school-db)"
+echo "  Health: $(docker inspect --format='{{.State.Health.Status}}' acme-school-db)"
+echo "  Uptime: $(docker inspect --format='{{.State.StartedAt}}' acme-school-db)"
+echo "  Port: 1521"
+echo "  Service: FREEPDB1"

@@ -6,13 +6,9 @@ services:
       - "1521:1521"
     environment:
       - ORACLE_PASSWORD=${ORACLE_PASSWORD:-AcmeSchool2025}
-      - APP_USER=acme_app
-      - APP_USER_PASSWORD=${APP_USER_PASSWORD:-AcmeApp2025}
     volumes:
       - oracle-data:/opt/oracle/oradata
-      - oracle-archivelog:/opt/oracle/archivelog
-      - ./init-scripts:/container-entrypoint-initdb.d
-      - ./backups:/opt/oracle/backups
+      - oracle-backups:/opt/oracle/backups
     healthcheck:
       test: ["CMD", "healthcheck.sh"]
       interval: 30s
@@ -25,5 +21,5 @@ services:
 volumes:
   oracle-data:
     driver: local
-  oracle-archivelog:
+  oracle-backups:
     driver: local
