@@ -14,7 +14,6 @@
 
 -- TODO: Implementar después de T-006
 
-/*
 -- DIMENSIONES
 CREATE TABLE dw_dim_estudiante (
     estudiante_key  NUMBER PRIMARY KEY,
@@ -77,4 +76,4 @@ CREATE TABLE dw_fact_notas (
     cantidad_evaluaciones NUMBER,
     aprobado        NUMBER(1) -- 1=Sí, 0=No
 );
-*/
+
