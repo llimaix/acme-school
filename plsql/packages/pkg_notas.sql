@@ -80,11 +80,15 @@ CREATE OR REPLACE PACKAGE BODY pkg_notas AS
         p_valor IN NUMBER,
         p_resultado OUT VARCHAR2
     ) IS
+        v_count NUMBER;
     BEGIN
         p_resultado := 'PENDIENTE';
         
         -- Validar que la nota exista
-        IF NOT EXISTS (SELECT 1 FROM nota WHERE nota_id = p_nota_id) THEN
+        SELECT COUNT(*) INTO v_count
+        FROM nota WHERE nota_id = p_nota_id;
+        
+        IF v_count = 0 THEN
             RAISE_APPLICATION_ERROR(-20012, 'Nota no encontrada');
         END IF;
         
@@ -113,9 +117,12 @@ CREATE OR REPLACE PACKAGE BODY pkg_notas AS
     ) RETURN NUMBER IS
         v_promedio NUMBER;
     BEGIN
-        -- Usar la función fn_promedio_estudiante
-        v_promedio := fn_promedio_estudiante(p_estudiante_id);
-        RETURN v_promedio;
+        SELECT AVG(n.valor) INTO v_promedio
+        FROM nota n
+        JOIN inscripcion i ON n.inscripcion_id = i.inscripcion_id
+        WHERE i.estudiante_id = p_estudiante_id;
+        
+        RETURN ROUND(v_promedio, 2);
         
     EXCEPTION
         WHEN OTHERS THEN
