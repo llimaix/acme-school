@@ -46,6 +46,7 @@ acme-school/
 | Tema | Documento |
 |------|-----------|
 | Trazabilidad y checklist de criterios | [docs/trazabilidad.md](docs/trazabilidad.md) |
+| Guía de demostración (consultas por criterio) | [docs/guia_demostracion.md](docs/guia_demostracion.md) |
 | Diagrama entidad-relación | [docs/diagrama_er.md](docs/diagrama_er.md) |
 | Diccionario de datos | [docs/diccionario_datos.md](docs/diccionario_datos.md) |
 | PL/SQL (packages, funciones, triggers) | [docs/plsql_documentacion.md](docs/plsql_documentacion.md) |
