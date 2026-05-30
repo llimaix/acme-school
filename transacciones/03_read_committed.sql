@@ -1,27 +1,89 @@
 -- ============================================================
 -- ACME SCHOOL - Sistema de Gestión Académica
 -- Script: 03_read_committed.sql
--- Descripción: Demostración de aislamiento READ COMMITTED
 -- Responsable: Wuili
 -- Tarea: T-014
+-- Descripción: Aislamiento READ COMMITTED (default en Oracle)
+--   Demostración con DOS sesiones simultáneas.
+--   Sesión B no ve cambios no confirmados de Sesión A,
+--   pero sí los ve después del COMMIT.
+-- IMPORTANTE: Ejecutar cada bloque en SESIÓN distinta.
 -- ============================================================
 
--- Requiere DOS sesiones Oracle simultáneas
--- Oracle usa READ COMMITTED por defecto
+-- =================================================================
+-- SESION A (terminal 1)
+-- =================================================================
+-- Conectar como: acme_school@FREEPDB1
 --
--- Sesión A:
---   1. Inicia transacción
---   2. Modifica datos (UPDATE inscripción/nota)
---   3. NO hace COMMIT aún
+-- ALTER SESSION SET CURRENT_SCHEMA = acme_school;
+-- SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 --
--- Sesión B:
---   1. Consulta los mismos datos
---   2. NO ve los cambios no confirmados de A
+-- -- Ver estado inicial
+-- SELECT seccion_id, cupo_disponible
+-- FROM seccion WHERE seccion_id = 11;
+-- -- Output: cupo_disponible = 15
 --
--- Sesión A:
---   3. COMMIT
+-- -- Modificar SIN commit
+-- UPDATE seccion
+-- SET cupo_disponible = cupo_disponible - 5
+-- WHERE seccion_id = 11;
+-- -- 1 row updated.
 --
--- Sesión B:
---   3. Ahora SÍ ve los cambios confirmados
+-- -- Ver el cambio LOCAL (sí lo ve dentro de la propia sesión)
+-- SELECT seccion_id, cupo_disponible
+-- FROM seccion WHERE seccion_id = 11;
+-- -- Output: cupo_disponible = 10
+--
+-- -- NO HACER COMMIT TODAVÍA. Pasar a Sesión B.
 
--- TODO: Implementar con dos sesiones reales
+-- =================================================================
+-- SESION B (terminal 2 - en paralelo)
+-- =================================================================
+-- Conectar como: acme_school@FREEPDB1
+--
+-- ALTER SESSION SET CURRENT_SCHEMA = acme_school;
+-- SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+--
+-- -- Consultar la misma sección
+-- SELECT seccion_id, cupo_disponible
+-- FROM seccion WHERE seccion_id = 11;
+-- -- Output: cupo_disponible = 15  ← NO ve el cambio de Sesión A
+-- --
+-- -- Esto demuestra READ COMMITTED:
+-- -- Sólo se leen datos confirmados (committed).
+
+-- =================================================================
+-- SESION A (regresar al terminal 1)
+-- =================================================================
+--
+-- COMMIT;
+
+-- =================================================================
+-- SESION B (otra vez en terminal 2)
+-- =================================================================
+--
+-- SELECT seccion_id, cupo_disponible
+-- FROM seccion WHERE seccion_id = 11;
+-- -- Output: cupo_disponible = 10  ← AHORA SÍ ve el cambio
+-- --
+-- -- READ COMMITTED garantiza que cada query ve el último estado
+-- -- confirmado al momento de ejecutarse (statement-level read consistency).
+
+-- =================================================================
+-- LIMPIEZA (sesión A o B)
+-- =================================================================
+-- Restaurar el cupo original
+-- UPDATE seccion SET cupo_disponible = 15 WHERE seccion_id = 11;
+-- COMMIT;
+
+-- =================================================================
+-- COMPORTAMIENTO ESPERADO
+-- =================================================================
+-- 1. Sesión A modifica sin commit → solo ella ve el cambio
+-- 2. Sesión B no ve cambios sucios (no dirty reads)
+-- 3. Después de commit en A → B ve el dato actualizado
+-- 4. Cada SELECT en B usa el último snapshot confirmado
+--
+-- Diferencia con SERIALIZABLE (T-015):
+--   READ COMMITTED:  cada query ve el último COMMIT
+--   SERIALIZABLE:    toda la transacción ve un snapshot fijo del inicio
