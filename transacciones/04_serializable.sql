@@ -1,25 +1,90 @@
 -- ============================================================
 -- ACME SCHOOL - Sistema de Gestión Académica
 -- Script: 04_serializable.sql
--- Descripción: Demostración de aislamiento SERIALIZABLE
 -- Responsable: Wuili
 -- Tarea: T-015
+-- Descripción: Aislamiento SERIALIZABLE
+--   Demostración con DOS sesiones simultáneas.
+--   La segunda transacción puede recibir ORA-08177
+--   (cannot serialize access) si modifica datos que cambiaron.
+-- IMPORTANTE: Ejecutar cada bloque en SESIÓN distinta.
 -- ============================================================
 
--- Requiere DOS sesiones Oracle simultáneas
--- Usar: SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+-- =================================================================
+-- SESION A (terminal 1)
+-- =================================================================
+-- Conectar como: acme_school@FREEPDB1
 --
--- Sesión A:
---   SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
---   SELECT cupo_disponible FROM seccion WHERE seccion_id = X;
---   UPDATE seccion SET cupo_disponible = cupo_disponible - 1 WHERE seccion_id = X;
+-- ALTER SESSION SET CURRENT_SCHEMA = acme_school;
+-- SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 --
--- Sesión B:
---   SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
---   SELECT cupo_disponible FROM seccion WHERE seccion_id = X;
---   UPDATE seccion SET cupo_disponible = cupo_disponible - 1 WHERE seccion_id = X;
---   -- Posible error: ORA-08177 can't serialize access for this transaction
+-- -- Snapshot inicial fijo: todo lo que vea esta transacción
+-- -- estará "congelado" en este punto en el tiempo.
+-- SELECT seccion_id, cupo_disponible
+-- FROM seccion WHERE seccion_id = 11;
+-- -- Output: cupo_disponible = 15
 --
--- Documentar comportamiento y diferencia con READ COMMITTED
+-- -- NO COMMIT aún. Pasar a Sesión B.
 
--- TODO: Implementar con dos sesiones reales
+-- =================================================================
+-- SESION B (terminal 2 - en paralelo)
+-- =================================================================
+-- Conectar como: acme_school@FREEPDB1
+--
+-- ALTER SESSION SET CURRENT_SCHEMA = acme_school;
+-- SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+--
+-- UPDATE seccion
+-- SET cupo_disponible = cupo_disponible - 1
+-- WHERE seccion_id = 11;
+-- -- 1 row updated.
+--
+-- COMMIT;
+-- -- Sesión B confirma el cambio: cupo_disponible = 14
+
+-- =================================================================
+-- SESION A (regresar al terminal 1)
+-- =================================================================
+--
+-- -- Sesión A sigue viendo su snapshot original
+-- SELECT seccion_id, cupo_disponible
+-- FROM seccion WHERE seccion_id = 11;
+-- -- Output: cupo_disponible = 15  ← snapshot fijo, no ve cambio de B
+--
+-- -- Si Sesión A intenta modificar el mismo registro:
+-- UPDATE seccion
+-- SET cupo_disponible = cupo_disponible - 2
+-- WHERE seccion_id = 11;
+-- --
+-- -- ERROR esperado:
+-- -- ORA-08177: can't serialize access for this transaction
+-- --
+-- -- Oracle detecta que el dato cambió desde el snapshot inicial
+-- -- de esta transacción y aborta para preservar serializabilidad.
+--
+-- ROLLBACK;
+
+-- =================================================================
+-- LIMPIEZA
+-- =================================================================
+-- UPDATE seccion SET cupo_disponible = 15 WHERE seccion_id = 11;
+-- COMMIT;
+
+-- =================================================================
+-- COMPORTAMIENTO ESPERADO
+-- =================================================================
+-- 1. Sesión A inicia con SERIALIZABLE → toma snapshot del momento
+-- 2. Sesión B modifica + commit
+-- 3. Sesión A sigue viendo el snapshot original (no ve cambio de B)
+-- 4. Si Sesión A intenta UPDATE sobre datos modificados externamente:
+--    → ORA-08177: cannot serialize access
+-- 5. Sesión A debe hacer ROLLBACK y reintentar la transacción
+--
+-- VENTAJA: Garantiza ejecución equivalente a transacciones seriadas
+-- DESVENTAJA: Mayor probabilidad de errores que requieren reintento
+--
+-- Cuándo usar SERIALIZABLE:
+--   - Transferencias bancarias
+--   - Reservas con stock crítico
+--   - Cualquier escenario donde phantom reads o non-repeatable reads
+--     puedan corromper la lógica de negocio.

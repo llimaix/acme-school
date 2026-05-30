@@ -1,23 +1,97 @@
 -- ============================================================
 -- ACME SCHOOL - Sistema de Gestión Académica
 -- Script: 05_deadlock_escenario.sql
--- Descripción: Reproducción de deadlock ORA-00060
 -- Responsable: Wuili
 -- Tarea: T-016
+-- Descripción: Reproducción de deadlock ORA-00060
+--   Escenario: dos sesiones modifican secciones en orden inverso.
+-- IMPORTANTE: Ejecutar cada bloque en SESIÓN distinta.
 -- ============================================================
 
--- Escenario: Dos sesiones actualizan secciones en orden inverso
+-- ESCENARIO:
+-- Sesión A:  bloquea seccion_id=11 → intenta bloquear seccion_id=12
+-- Sesión B:  bloquea seccion_id=12 → intenta bloquear seccion_id=11
 --
--- Sesión A:
---   UPDATE seccion SET cupo_disponible = cupo_disponible - 1 WHERE seccion_id = 1;
---   -- espera...
---   UPDATE seccion SET cupo_disponible = cupo_disponible - 1 WHERE seccion_id = 2;
---
--- Sesión B:
---   UPDATE seccion SET cupo_disponible = cupo_disponible - 1 WHERE seccion_id = 2;
---   -- espera...
---   UPDATE seccion SET cupo_disponible = cupo_disponible - 1 WHERE seccion_id = 1;
---
--- Resultado esperado: ORA-00060: deadlock detected while waiting for resource
+-- Resultado: ciclo de espera mutua → ORA-00060
 
--- TODO: Implementar con dos sesiones reales
+-- =================================================================
+-- SESION A (terminal 1) - PASO 1
+-- =================================================================
+-- Conectar como: acme_school@FREEPDB1
+--
+-- ALTER SESSION SET CURRENT_SCHEMA = acme_school;
+--
+-- -- Bloqueo sobre seccion 11
+-- UPDATE seccion
+-- SET cupo_disponible = cupo_disponible - 1
+-- WHERE seccion_id = 11;
+-- -- 1 row updated. (lock adquirido sobre seccion 11)
+--
+-- -- NO HACER COMMIT. Pasar a Sesion B.
+
+-- =================================================================
+-- SESION B (terminal 2) - PASO 2
+-- =================================================================
+-- Conectar como: acme_school@FREEPDB1
+--
+-- ALTER SESSION SET CURRENT_SCHEMA = acme_school;
+--
+-- -- Bloqueo sobre seccion 12
+-- UPDATE seccion
+-- SET cupo_disponible = cupo_disponible - 1
+-- WHERE seccion_id = 12;
+-- -- 1 row updated. (lock adquirido sobre seccion 12)
+--
+-- -- Ahora intenta bloquear seccion 11 (que tiene Sesion A)
+-- UPDATE seccion
+-- SET cupo_disponible = cupo_disponible - 1
+-- WHERE seccion_id = 11;
+-- -- ⏳ Sesion B QUEDA EN ESPERA (Sesion A tiene el lock)
+
+-- =================================================================
+-- SESION A (volver a terminal 1) - PASO 3
+-- =================================================================
+--
+-- -- Intentar bloquear seccion 12 (que tiene Sesion B)
+-- UPDATE seccion
+-- SET cupo_disponible = cupo_disponible - 1
+-- WHERE seccion_id = 12;
+-- --
+-- -- Oracle detecta el ciclo: A espera a B, B espera a A
+-- --
+-- -- ERROR esperado en Sesion A:
+-- -- ORA-00060: deadlock detected while waiting for resource
+-- --
+-- -- Oracle resuelve el deadlock matando UNA de las transacciones
+-- -- (la que detectó el ciclo). Sesion B continúa normalmente
+-- -- y debe hacer COMMIT o ROLLBACK.
+
+-- =================================================================
+-- LIMPIEZA
+-- =================================================================
+-- En ambas sesiones:
+-- ROLLBACK;
+
+-- =================================================================
+-- VERIFICAR EL DEADLOCK EN ALERT LOG / V$LOCK
+-- =================================================================
+--
+-- -- Ver locks activos durante el deadlock (antes del ORA-00060):
+-- SELECT s.sid, s.serial#, s.username, l.type,
+--        l.id1 AS object_id, l.lmode, l.request
+-- FROM v$lock l
+-- JOIN v$session s ON s.sid = l.sid
+-- WHERE l.block = 1 OR l.request > 0;
+--
+-- -- Ver el trace file generado:
+-- SELECT value FROM v$diag_info WHERE name = 'Default Trace File';
+
+-- =================================================================
+-- POR QUÉ OCURRE
+-- =================================================================
+-- Es un patrón clásico de "lock ordering inverso":
+--   - Sesión A:  Lock(R1) → Lock(R2)
+--   - Sesión B:  Lock(R2) → Lock(R1)
+--
+-- Cada sesión sostiene un recurso que la otra necesita.
+-- La solución (T-017): aplicar un orden FIJO de locks.
