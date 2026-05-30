@@ -1,10 +1,5 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Package: pkg_inscripciones
--- Descripción: Operaciones de inscripción de estudiantes
--- Responsable: Emmanuel (con apoyo de Wuili)
--- Tareas: T-011, T-012, T-013
--- ============================================================
+-- Package pkg_inscripciones: inscripción y retiro de estudiantes
+-- con validaciones y manejo transaccional (COMMIT/ROLLBACK).
 
 -- SPEC
 CREATE OR REPLACE PACKAGE pkg_inscripciones AS

@@ -1,6 +1,4 @@
--- ACME SCHOOL - Trigger: trg_auditoria
--- Descripción: Auditoría de cambios en inscripciones y notas
--- Responsable: Emmanuel, Tarea: T-021
+-- Triggers de auditoría para cambios en inscripcion y nota.
 
 CREATE OR REPLACE TRIGGER trg_auditoria_inscripcion
 AFTER INSERT OR UPDATE OR DELETE ON inscripcion

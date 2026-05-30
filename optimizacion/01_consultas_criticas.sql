@@ -1,11 +1,4 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 01_consultas_criticas.sql
--- Descripción: Consultas críticas para medir rendimiento
--- Responsable: Julian
--- Tarea: T-033
--- Ejecutar como: acme_school
--- ============================================================
+-- Consultas críticas para medir rendimiento. Ejecutar como acme_school.
 
 ALTER SESSION SET CURRENT_SCHEMA = acme_school;
 

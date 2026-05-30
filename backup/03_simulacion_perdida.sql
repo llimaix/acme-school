@@ -1,14 +1,6 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: backup/03_simulacion_perdida.sql
--- Responsable: Luis
--- Tarea: T-027
--- Descripción: Simulación CONTROLADA de pérdida de datos
---   Eliminar inscripciones y notas del período 2024-1
---   para luego demostrar recuperación (T-028)
--- Ejecutar como: acme_school
--- PRERREQUISITO: Backup validado previamente (T-025, T-026)
--- ============================================================
+-- Simulación controlada de pérdida: elimina inscripciones y notas
+-- del período 2024-1 para luego recuperarlas (04_recuperacion.sql).
+-- Ejecutar como acme_school. Requiere backup validado.
 
 ALTER SESSION SET CURRENT_SCHEMA = acme_school;
 SET SERVEROUTPUT ON;

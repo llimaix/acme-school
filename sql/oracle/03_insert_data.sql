@@ -1,26 +1,6 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 03_insert_data.sql
--- Descripción: Dataset académico completo para pruebas
--- Responsable: Luis (completado por Luis ante ausencia de Julian)
--- Tarea: T-009
--- Ejecutar como: acme_school
--- ============================================================
--- Dataset incluye:
---   * 25 estudiantes
---   * 8 docentes
---   * 12 cursos
---   * 4 períodos (2 cerrados, 1 activo, 1 planificado)
---   * 18 secciones (distribuidas en 3 períodos)
---   * ~90 inscripciones (con estados variados)
---   * ~100 notas (con aprobados y reprobados)
---
--- Casos especiales para demos:
---   * Sección con cupo=0 (para ROLLBACK por cupo lleno)
---   * Período CERRADO (para ROLLBACK por período inválido)
---   * Estudiantes ya inscritos (para ROLLBACK por duplicidad)
---   * Notas variadas (para KPIs del DW)
--- ============================================================
+-- Dataset de prueba: 8 docentes, 12 cursos, 4 periodos, 25 estudiantes y 18 secciones.
+-- Incluye casos para demos: sección con cupo 0 y períodos cerrados.
+-- Ejecutar como acme_school.
 
 -- ==================== DOCENTES (8) ====================
 INSERT INTO docente (codigo, nombre, apellido, email, especialidad) VALUES ('DOC-001', 'Carlos', 'Mendoza', 'cmendoza@acme.edu', 'Matemáticas');

@@ -1,12 +1,5 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 02_etl_carga.sql
--- Descripción: Proceso ETL desde operacional hacia DW
--- Responsable: Julian
--- Tarea: T-041
--- Ejecutar como: acme_school
--- ============================================================
-
+-- ETL desde el modelo operacional hacia el Data Warehouse.
+-- Ejecutar como acme_school.
 
 ALTER SESSION SET CURRENT_SCHEMA = acme_school;
 

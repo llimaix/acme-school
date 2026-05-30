@@ -1,12 +1,9 @@
 #!/bin/bash
-# ============================================================
-# ACME SCHOOL - Deploy de infraestructura Oracle
-# Lee las credenciales desde el .env del servidor
-# ============================================================
+# Deploy de infraestructura Oracle. Lee credenciales del .env del servidor.
 
 set -e
 
-PROJECT_DIR="/opt/acme-school/database"
+PROJECT_DIR="/opt/sv-db/database"
 cd "$PROJECT_DIR"
 
 echo "=== 1. Verificando Docker ==="

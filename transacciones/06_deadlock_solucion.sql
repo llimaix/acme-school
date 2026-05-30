@@ -1,11 +1,4 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 06_deadlock_solucion.sql
--- Responsable: Wuili
--- Tarea: T-017
--- Descripción: Solución al deadlock del escenario T-016
---   Aplicando ORDEN FIJO DE LOCKS y SELECT FOR UPDATE.
--- ============================================================
+-- Solución al deadlock: orden fijo de locks (LEAST/GREATEST) y SELECT FOR UPDATE.
 
 -- ============================================================
 -- CAUSA RAÍZ DEL DEADLOCK

@@ -1,24 +1,9 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 02_rollback_error.sql
--- Responsable: Wuili
--- Tarea: T-013
--- Descripción: Demostración de ROLLBACK ante error controlado.
---   3 escenarios:
---     A) Cupo lleno
---     B) Inscripción duplicada
---     C) Período cerrado
---   En todos los casos: NO debe quedar ningún cambio parcial.
--- Ejecutar como: acme_school
--- ============================================================
+-- ROLLBACK ante error controlado en tres escenarios:
+-- cupo lleno, inscripción duplicada y período cerrado.
+-- Ejecutar como acme_school.
 
 ALTER SESSION SET CURRENT_SCHEMA = acme_school;
 SET SERVEROUTPUT ON;
-
--- ============================================================
--- ESCENARIO A: CUPO LLENO
--- Sección con cupo_disponible = 0 (BD II - 2025-1, sección B)
--- ============================================================
 
 PROMPT === ESCENARIO A: CUPO LLENO ===
 PROMPT Estado ANTES:
@@ -78,7 +63,6 @@ WHERE c.codigo = 'BD-201' AND p.codigo = '2025-1' AND s.codigo_seccion = 'B';
 
 -- ============================================================
 -- ESCENARIO B: INSCRIPCION DUPLICADA
--- El estudiante ya está inscrito en la sección
 -- ============================================================
 
 PROMPT === ESCENARIO B: INSCRIPCION DUPLICADA ===
@@ -114,7 +98,6 @@ END;
 
 -- ============================================================
 -- ESCENARIO C: PERIODO CERRADO
--- Intentar inscribir en un período con estado CERRADO
 -- ============================================================
 
 PROMPT === ESCENARIO C: PERIODO CERRADO ===

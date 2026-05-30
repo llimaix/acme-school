@@ -1,12 +1,5 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: backup/01_estrategia_backup.sql
--- Responsable: Luis
--- Tarea: T-025
--- Descripción: Estrategia de backup Oracle (RMAN + Data Pump)
---   Define plan completo, frecuencias, retención y comandos
--- Ejecutar como: SYSDBA dentro del contenedor
--- ============================================================
+-- Estrategia de backup con RMAN (completo + incremental) y Data Pump.
+-- Ejecutar como SYSDBA dentro del contenedor.
 
 -- ============================================================
 -- ESTRATEGIA DEFINIDA
@@ -136,10 +129,10 @@ DELETE NOPROMPT OBSOLETE;
 -- Para programar en producción (crontab):
 --
 --   # Lunes a sábado 02:00 - Backup incremental
---   0 2 * * 1-6 /opt/acme-school/database/scripts/rman_incremental.sh
+--   0 2 * * 1-6 /opt/sv-db/database/scripts/rman_incremental.sh
 --
 --   # Domingo 02:00 - Backup completo
---   0 2 * * 0   /opt/acme-school/database/scripts/rman_full.sh
+--   0 2 * * 0   /opt/sv-db/database/scripts/rman_full.sh
 
 -- ============================================================
 -- EVIDENCIA REQUERIDA PARA EL PDF

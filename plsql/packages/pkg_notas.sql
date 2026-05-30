@@ -1,10 +1,4 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Package: pkg_notas
--- Descripción: Registro y actualización de notas
--- Responsable: Emmanuel
--- Tarea: T-018
--- ============================================================
+-- Package pkg_notas: registro y actualización de notas con validaciones.
 
 -- SPEC
 CREATE OR REPLACE PACKAGE pkg_notas AS

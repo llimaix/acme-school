@@ -1,14 +1,6 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 04_serializable.sql
--- Responsable: Wuili
--- Tarea: T-015
--- Descripción: Aislamiento SERIALIZABLE
---   Demostración con DOS sesiones simultáneas.
---   La segunda transacción puede recibir ORA-08177
---   (cannot serialize access) si modifica datos que cambiaron.
--- IMPORTANTE: Ejecutar cada bloque en SESIÓN distinta.
--- ============================================================
+-- Aislamiento SERIALIZABLE, con dos sesiones.
+-- La segunda transacción puede recibir ORA-08177 al modificar datos cambiados.
+-- Ejecutar cada bloque en una sesión distinta.
 
 -- =================================================================
 -- SESION A (terminal 1)

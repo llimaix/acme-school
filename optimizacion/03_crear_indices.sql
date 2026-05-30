@@ -1,10 +1,4 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 03_crear_indices.sql
--- Descripción: Índices estratégicos sobre tablas críticas
--- Responsable: Julian
--- Tarea: T-036
--- ============================================================
+-- Índices estratégicos sobre las columnas usadas en JOIN y filtros.
 
 SET ECHO ON;
 SET FEEDBACK ON;

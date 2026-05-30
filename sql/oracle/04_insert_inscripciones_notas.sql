@@ -1,13 +1,7 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 04_insert_inscripciones_notas.sql
--- Descripción: Inscripciones y notas para todos los períodos
--- Responsable: Luis (completado por Luis ante ausencia de Julian)
--- Tarea: T-009
--- Ejecutar como: acme_school
--- ============================================================
+-- Inscripciones de los tres períodos con estados variados.
+-- Ejecutar como acme_school.
 
--- ==================== INSCRIPCIONES PERIODO 2024-1 (CERRADO) ====================
+-- Período 2024-1 (cerrado)
 -- Sección 1: Cálculo I
 INSERT INTO inscripcion (estudiante_id, seccion_id, fecha_inscripcion, estado) VALUES (1, 1, TIMESTAMP '2024-01-16 08:30:00', 'COMPLETADO');
 INSERT INTO inscripcion (estudiante_id, seccion_id, fecha_inscripcion, estado) VALUES (2, 1, TIMESTAMP '2024-01-16 09:15:00', 'COMPLETADO');

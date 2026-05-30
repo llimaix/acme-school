@@ -1,18 +1,9 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 01_commit_exitoso.sql
--- Responsable: Wuili
--- Tarea: T-012
--- Descripción: Demostración de COMMIT explícito en una operación
---   crítica (inscripción de estudiante). Demuestra atomicidad
---   y persistencia de cambios.
--- Ejecutar como: acme_school
--- ============================================================
+-- COMMIT explícito en una inscripción: demuestra atomicidad y persistencia.
+-- Ejecutar como acme_school.
 
 ALTER SESSION SET CURRENT_SCHEMA = acme_school;
 SET SERVEROUTPUT ON;
 
--- ==================== ESTADO ANTES ====================
 PROMPT === ESTADO ANTES DE LA TRANSACCION ===
 
 -- Datos del estudiante a inscribir

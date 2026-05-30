@@ -1,7 +1,5 @@
 # Arquitectura de Alta Disponibilidad
 
-## Tarea: T-045 | Responsable: Luis
-
 ## Contexto
 
 Oracle Database Free (la edición que usamos) **no soporta Data Guard ni RAC** de forma nativa. Sin embargo, el requerimiento de Alta Disponibilidad se cumple presentando:

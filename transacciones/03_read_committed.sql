@@ -1,14 +1,6 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 03_read_committed.sql
--- Responsable: Wuili
--- Tarea: T-014
--- Descripción: Aislamiento READ COMMITTED (default en Oracle)
---   Demostración con DOS sesiones simultáneas.
---   Sesión B no ve cambios no confirmados de Sesión A,
---   pero sí los ve después del COMMIT.
--- IMPORTANTE: Ejecutar cada bloque en SESIÓN distinta.
--- ============================================================
+-- Aislamiento READ COMMITTED (default en Oracle), con dos sesiones.
+-- Sesión B no ve cambios sin confirmar de A; sí los ve tras el COMMIT.
+-- Ejecutar cada bloque en una sesión distinta.
 
 -- =================================================================
 -- SESION A (terminal 1)

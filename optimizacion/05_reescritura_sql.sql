@@ -1,10 +1,4 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 05_reescritura_sql.sql
--- Descripción: Optimización por reescritura de consulta SQL
--- Responsable: Julian
--- Tarea: T-038
--- ============================================================
+-- Optimización de una consulta mediante reescritura SQL.
 
 SET ECHO ON;
 SET FEEDBACK ON;

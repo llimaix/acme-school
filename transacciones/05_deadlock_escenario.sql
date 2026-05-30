@@ -1,12 +1,5 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 05_deadlock_escenario.sql
--- Responsable: Wuili
--- Tarea: T-016
--- Descripción: Reproducción de deadlock ORA-00060
---   Escenario: dos sesiones modifican secciones en orden inverso.
--- IMPORTANTE: Ejecutar cada bloque en SESIÓN distinta.
--- ============================================================
+-- Reproducción de deadlock ORA-00060: dos sesiones bloquean
+-- secciones en orden inverso. Ejecutar cada bloque en una sesión distinta.
 
 -- ESCENARIO:
 -- Sesión A:  bloquea seccion_id=11 → intenta bloquear seccion_id=12

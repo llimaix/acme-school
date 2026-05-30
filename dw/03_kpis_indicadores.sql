@@ -1,11 +1,5 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 03_kpis_indicadores.sql
--- Descripción: Indicadores estratégicos académicos (KPIs)
--- Responsable: Julian
--- Tareas: T-042, T-043
--- Ejecutar como: acme_school
--- ============================================================
+-- Indicadores estratégicos (KPIs) sobre el Data Warehouse.
+-- Ejecutar como acme_school.
 
 ALTER SESSION SET CURRENT_SCHEMA = acme_school;
 

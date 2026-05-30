@@ -1,15 +1,7 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 01_modelo_dimensional.sql
--- Descripción: DDL del modelo estrella (Data Warehouse)
--- Responsable: Julian
--- Tareas: T-039, T-040
--- ============================================================
+-- Modelo estrella del Data Warehouse: dimensiones y tablas de hechos.
+-- Dimensiones: dim_estudiante, dim_curso, dim_docente, dim_periodo.
+-- Hechos: fact_inscripciones, fact_notas.
 
--- Modelo Estrella:
---   Dimensiones: dim_estudiante, dim_curso, dim_docente, dim_periodo
---   Hechos: fact_inscripciones, fact_notas
---
 -- Puede estar en schema separado (DW_ACME) o con prefijo DW_
 
 -- TODO: Implementar después de T-006

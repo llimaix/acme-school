@@ -1,10 +1,4 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 04_explain_plan_despues.sql
--- Descripción: EXPLAIN PLAN después de optimizar (comparación)
--- Responsable: Julian
--- Tarea: T-037
--- ============================================================
+-- EXPLAIN PLAN después de crear índices, para comparar con 02.
 
 SET ECHO ON;
 SET FEEDBACK ON;

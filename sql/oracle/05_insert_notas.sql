@@ -1,16 +1,7 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 05_insert_notas.sql
--- Descripción: Notas de evaluaciones para períodos cerrados
--- Responsable: Luis (completado por Luis ante ausencia de Julian)
--- Tarea: T-009
--- Ejecutar como: acme_school
--- ============================================================
--- Notas variadas: aprobados (>=61) y reprobados (<61)
--- Tipos: Parcial 1, Parcial 2, Final
--- ============================================================
+-- Notas de evaluaciones de los períodos cerrados.
+-- Mezcla aprobados (>=61) y reprobados (<61). Ejecutar como acme_school.
 
--- ==================== NOTAS PERIODO 2024-1 ====================
+-- Período 2024-1
 
 -- Inscripción 1: EST-001 en Cálculo I (aprobado)
 INSERT INTO nota (inscripcion_id, tipo_evaluacion, valor) VALUES (1, 'Parcial 1', 78.50);

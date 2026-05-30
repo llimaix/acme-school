@@ -1,7 +1,5 @@
 # Failover, RPO y RTO
 
-## Tarea: T-046 | Responsable: Luis
-
 ## Definiciones
 
 | Métrica | Significado | Pregunta que responde |

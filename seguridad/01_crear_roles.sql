@@ -1,13 +1,5 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: seguridad/01_crear_roles.sql
--- Responsable: Luis
--- Tareas: T-029, T-030
--- Descripción: Definición de usuarios y roles diferenciados
---   con principio de MÍNIMO PRIVILEGIO
--- Ejecutar como: acme_school (tiene CREATE ROLE y CREATE USER)
--- Prerrequisito: Tablas de Wuili creadas (T-008)
--- ============================================================
+-- Roles y usuarios diferenciados bajo el principio de mínimo privilegio.
+-- Ejecutar como acme_school. Requiere las tablas ya creadas.
 
 -- ==================== ROLES ACADÉMICOS ====================
 

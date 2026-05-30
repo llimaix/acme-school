@@ -1,18 +1,10 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 02_create_tables.sql
--- Descripción: DDL completo del modelo operacional
--- Responsable: Wuili
--- Tareas: T-006, T-008
--- Ejecutar como: acme_school
--- ============================================================
--- Entidades: Estudiante, Docente, Curso, Período, Sección,
---            Inscripción, Nota, Auditoría Académica
--- ============================================================
+-- DDL del modelo operacional: estudiante, docente, curso, periodo,
+-- seccion, inscripcion, nota y auditoria_academica.
+-- Ejecutar como acme_school.
 
 ALTER SESSION SET CURRENT_SCHEMA = acme_school;
 
--- ==================== ESTUDIANTE ====================
+-- Estudiante
 CREATE TABLE estudiante (
     estudiante_id    NUMBER DEFAULT seq_estudiante.NEXTVAL,
     codigo           VARCHAR2(20)   NOT NULL,
@@ -32,7 +24,7 @@ COMMENT ON TABLE estudiante IS 'Estudiantes del sistema académico';
 COMMENT ON COLUMN estudiante.codigo IS 'Código único de matrícula (ej: EST-001)';
 COMMENT ON COLUMN estudiante.estado IS 'ACTIVO, INACTIVO o GRADUADO';
 
--- ==================== DOCENTE ====================
+-- Docente
 CREATE TABLE docente (
     docente_id     NUMBER DEFAULT seq_docente.NEXTVAL,
     codigo         VARCHAR2(20)  NOT NULL,
@@ -50,7 +42,7 @@ CREATE TABLE docente (
 
 COMMENT ON TABLE docente IS 'Docentes que imparten secciones';
 
--- ==================== CURSO ====================
+-- Curso
 CREATE TABLE curso (
     curso_id    NUMBER DEFAULT seq_curso.NEXTVAL,
     codigo      VARCHAR2(20)  NOT NULL,
@@ -66,7 +58,7 @@ CREATE TABLE curso (
 
 COMMENT ON TABLE curso IS 'Catálogo de cursos académicos';
 
--- ==================== PERIODO ====================
+-- Periodo
 CREATE TABLE periodo (
     periodo_id   NUMBER DEFAULT seq_periodo.NEXTVAL,
     codigo       VARCHAR2(20)  NOT NULL,
@@ -82,7 +74,7 @@ CREATE TABLE periodo (
 
 COMMENT ON TABLE periodo IS 'Períodos académicos (semestres/ciclos)';
 
--- ==================== SECCION ====================
+-- Seccion
 CREATE TABLE seccion (
     seccion_id      NUMBER DEFAULT seq_seccion.NEXTVAL,
     curso_id        NUMBER       NOT NULL,
@@ -108,7 +100,7 @@ CREATE TABLE seccion (
 COMMENT ON TABLE seccion IS 'Secciones de cursos en un período con docente asignado';
 COMMENT ON COLUMN seccion.cupo_disponible IS 'Cupos restantes; se decrementa al inscribir';
 
--- ==================== INSCRIPCION ====================
+-- Inscripcion
 CREATE TABLE inscripcion (
     inscripcion_id    NUMBER DEFAULT seq_inscripcion.NEXTVAL,
     estudiante_id     NUMBER       NOT NULL,
@@ -125,7 +117,7 @@ CREATE TABLE inscripcion (
 COMMENT ON TABLE inscripcion IS 'Inscripción de un estudiante en una sección';
 COMMENT ON COLUMN inscripcion.estado IS 'INSCRITO, RETIRADO o COMPLETADO';
 
--- ==================== NOTA ====================
+-- Nota
 CREATE TABLE nota (
     nota_id         NUMBER DEFAULT seq_nota.NEXTVAL,
     inscripcion_id  NUMBER        NOT NULL,
@@ -140,7 +132,7 @@ CREATE TABLE nota (
 
 COMMENT ON TABLE nota IS 'Calificaciones de evaluaciones por inscripción';
 
--- ==================== AUDITORIA ACADEMICA ====================
+-- Auditoria academica
 CREATE TABLE auditoria_academica (
     auditoria_id   NUMBER DEFAULT seq_auditoria.NEXTVAL,
     usuario        VARCHAR2(50)   DEFAULT USER NOT NULL,
@@ -156,15 +148,11 @@ CREATE TABLE auditoria_academica (
 
 COMMENT ON TABLE auditoria_academica IS 'Bitácora de cambios en tablas críticas';
 
--- ==================== ÍNDICES ADICIONALES (FK no indexadas) ====================
--- Los índices estratégicos de optimización los maneja Julian (T-036)
--- Aquí solo agrego los necesarios para FKs (Oracle no los crea automáticamente)
-
+-- Índices sobre las FK (Oracle no los crea automáticamente).
 CREATE INDEX idx_seccion_curso   ON seccion(curso_id);
 CREATE INDEX idx_seccion_docente ON seccion(docente_id);
 CREATE INDEX idx_seccion_periodo ON seccion(periodo_id);
 
--- ==================== VERIFICACIÓN ====================
 SELECT table_name FROM user_tables ORDER BY table_name;
 SELECT constraint_name, constraint_type, table_name
 FROM user_constraints

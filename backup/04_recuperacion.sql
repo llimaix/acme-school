@@ -1,15 +1,5 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: backup/04_recuperacion.sql
--- Responsable: Luis
--- Tarea: T-028
--- Descripción: Recuperación de datos desde backup/log
---   Tres opciones documentadas, elegir según contexto:
---     A) Flashback Table (más rápido)
---     B) RMAN Point-in-Time Recovery (más completo)
---     C) Data Pump Import (desde export lógico)
--- PRERREQUISITO: Haber ejecutado backup/03_simulacion_perdida.sql
--- ============================================================
+-- Recuperación de datos. Tres opciones: Flashback Table, RMAN PITR
+-- o Data Pump Import. Ejecutar tras 03_simulacion_perdida.sql.
 
 -- ============================================================
 -- OPCIÓN A: FLASHBACK TABLE (RECOMENDADA PARA LA DEMO)

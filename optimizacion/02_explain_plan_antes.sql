@@ -1,10 +1,4 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 02_explain_plan_antes.sql
--- Descripción: EXPLAIN PLAN antes de optimizar
--- Responsable: Julián
--- Tarea: T-034
--- ============================================================
+-- EXPLAIN PLAN de las consultas críticas antes de crear índices.
 
 SET ECHO ON;
 SET FEEDBACK ON;

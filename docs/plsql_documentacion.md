@@ -1,6 +1,4 @@
 # Documentación PL/SQL - ACME School
-## Responsable: Emmanuel
-## Tarea: T-024
 
 ---
 

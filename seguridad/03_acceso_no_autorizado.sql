@@ -1,13 +1,5 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: seguridad/03_acceso_no_autorizado.sql
--- Responsable: Luis
--- Tarea: T-031
--- Descripción: Demostración de intentos de acceso no autorizado.
---   Cada bloque se ejecuta conectado como el usuario indicado.
---   IMPORTANTE: Capturar pantalla mostrando SHOW USER y el error ORA.
--- Prerrequisito: 01_crear_roles.sql ejecutado
--- ============================================================
+-- Intentos de acceso no autorizado. Cada bloque se ejecuta conectado
+-- como el usuario indicado; capturar SHOW USER y el error ORA.
 
 -- ============================================================
 -- DEMO 1: Analista BI intenta INSERT (solo tiene SELECT)

@@ -1,10 +1,4 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 02_failover_simulacion.sql
--- Descripción: Simulación de failover/restauración
--- Responsable: Wuili (con apoyo de Luis)
--- Tarea: T-047
--- ============================================================
+-- Simulación de failover: restauración en una instancia secundaria.
 
 -- Escenario: Restauración en instancia secundaria
 --   1. Tomar backup RMAN del primario

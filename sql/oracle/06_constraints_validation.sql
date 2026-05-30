@@ -1,17 +1,10 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: 06_constraints_validation.sql
--- Descripción: Pruebas de integridad referencial y constraints
--- Responsable: Luis (completado por Luis ante ausencia de Emmanuel)
--- Tarea: T-010
--- Ejecutar como: acme_school
--- Prerrequisito: Tablas y datos cargados (01-05)
--- ============================================================
+-- Pruebas de integridad referencial y constraints.
+-- Cada bloque debe fallar con un error ORA controlado.
+-- Ejecutar como acme_school tras cargar datos (01-05).
 
 SET SERVEROUTPUT ON;
 
 PROMPT === PRUEBAS DE INTEGRIDAD REFERENCIAL ===
-PROMPT Cada prueba debe FALLAR con un error ORA controlado.
 PROMPT
 
 -- ============================================================

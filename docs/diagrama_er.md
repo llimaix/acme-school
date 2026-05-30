@@ -1,7 +1,5 @@
 # Diagrama Entidad-Relación - Modelo Operacional
 
-## Tarea: T-006 | Responsable: Wuili
-
 ## Diagrama ER
 
 ```mermaid

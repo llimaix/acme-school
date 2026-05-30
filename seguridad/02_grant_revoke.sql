@@ -1,13 +1,5 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: seguridad/02_grant_revoke.sql
--- Responsable: Luis
--- Tarea: T-030
--- Descripción: Demostración explícita de GRANT y REVOKE
---   sobre roles ya existentes
--- Ejecutar como: acme_school
--- Prerrequisito: 01_crear_roles.sql ejecutado
--- ============================================================
+-- Demostración de GRANT y REVOKE sobre los roles existentes.
+-- Ejecutar como acme_school tras 01_crear_roles.sql.
 
 ALTER SESSION SET CURRENT_SCHEMA = acme_school;
 SET SERVEROUTPUT ON;

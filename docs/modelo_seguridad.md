@@ -1,7 +1,5 @@
 # Modelo de Seguridad - ACME School
 
-## Tarea: T-032 | Responsable: Luis
-
 ## Principio de diseño
 
 El modelo se basa en **mínimo privilegio**: cada rol solo recibe los permisos estrictamente necesarios para cumplir su función. Ningún usuario funcional usa SYS o SYSTEM.

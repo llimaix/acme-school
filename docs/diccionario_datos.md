@@ -1,8 +1,5 @@
 # Diccionario de Datos - Sistema de Gestión Académica
 
-## Responsable: Emmanuel
-## Tarea: T-007
-
 ## Entidades del Modelo Operacional
 
 ### Estudiante

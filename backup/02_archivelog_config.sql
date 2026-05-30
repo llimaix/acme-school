@@ -1,12 +1,5 @@
--- ============================================================
--- ACME SCHOOL - Sistema de Gestión Académica
--- Script: backup/02_archivelog_config.sql
--- Responsable: Luis
--- Tarea: T-026
--- Descripción: Habilitar modo ARCHIVELOG para recovery
---   point-in-time y respaldos online consistentes
--- Ejecutar como: SYSDBA dentro del contenedor
--- ============================================================
+-- Habilitar modo ARCHIVELOG para recovery point-in-time y backups online.
+-- Ejecutar como SYSDBA dentro del contenedor.
 
 -- ============================================================
 -- ¿QUÉ ES ARCHIVELOG?

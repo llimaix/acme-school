@@ -1,8 +1,6 @@
--- ACME SCHOOL - Trigger: trg_validacion_negocio
--- Descripción: Validación de reglas de negocio
--- Responsable: Emmanuel, Tarea: T-022
+-- Triggers de validación de reglas de negocio.
 
--- Validación en NOTA: valor entre 0 y 100
+-- Nota dentro del rango 0-100.
 CREATE OR REPLACE TRIGGER trg_validacion_nota
 BEFORE INSERT OR UPDATE ON nota
 FOR EACH ROW
@@ -13,7 +11,7 @@ BEGIN
 END trg_validacion_nota;
 /
 
--- Validación en INSCRIPCION: período debe estar activo
+-- Inscripción solo en período activo.
 CREATE OR REPLACE TRIGGER trg_validacion_inscripcion
 BEFORE INSERT ON inscripcion
 FOR EACH ROW
