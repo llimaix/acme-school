@@ -1,5 +1,5 @@
 services:
-  oracle-db:
+  oracle-primary:
     image: gvenzl/oracle-free:23-full
     container_name: acme-school-db
     ports:
@@ -20,8 +20,40 @@ services:
     restart: unless-stopped
     shm_size: '1g'
 
+  oracle-standby:
+    image: gvenzl/oracle-free:23-full
+    container_name: acme-school-standby
+    ports:
+      - "1522:1521"
+    environment:
+      - ORACLE_PASSWORD=${ORACLE_PASSWORD}
+    volumes:
+      - oracle-standby-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+    restart: unless-stopped
+    shm_size: '1g'
+
+  haproxy:
+    image: haproxy:2.9-alpine
+    container_name: acme-school-lb
+    ports:
+      - "1523:1523"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    depends_on:
+      - oracle-primary
+      - oracle-standby
+    restart: unless-stopped
+
 volumes:
   oracle-data:
+    driver: local
+  oracle-standby-data:
     driver: local
   oracle-backups:
     driver: local

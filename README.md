@@ -52,6 +52,7 @@ acme-school/
 | PL/SQL (packages, funciones, triggers) | [docs/plsql_documentacion.md](docs/plsql_documentacion.md) |
 | Modelo de seguridad | [docs/modelo_seguridad.md](docs/modelo_seguridad.md) |
 | Arquitectura de alta disponibilidad | [docs/arquitectura_ha.md](docs/arquitectura_ha.md) |
+| Diagrama del balanceador (HAProxy) | [docs/diagrama_balanceador.md](docs/diagrama_balanceador.md) |
 | Failover, RPO y RTO | [docs/rpo_rto.md](docs/rpo_rto.md) |
 | Infraestructura de base de datos | [docs/infraestructura_db.md](docs/infraestructura_db.md) |
 | Recursos del equipo | [docs/recursos_equipo.md](docs/recursos_equipo.md) |
