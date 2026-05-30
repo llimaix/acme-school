@@ -48,7 +48,7 @@ Esta tabla vincula cada criterio de la rúbrica con la evidencia requerida, los 
 |----|-------|---------|--------|
 | T-045 | Arquitectura HA | `ha/01_arquitectura_ha.md` | ✅ |
 | T-046 | Failover, RPO y RTO | `ha/03_rpo_rto.md` | ✅ |
-| T-047 | Simulación failover | `ha/02_failover_simulacion.sql` | ⬜ Wuili |
+| T-047 | Simulación failover | `ha/02_failover_simulacion.sql` + `evidencias/sprint-3/run_sprint3.sh` | ✅ |
 
 ---
 

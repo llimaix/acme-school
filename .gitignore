@@ -19,6 +19,14 @@ build/
 .env.example
 database/.env
 
+# Scripts con credenciales SSH/Oracle (NO subir - contienen passwords)
+scripts/setup_completo.sh
+evidencias/sprint-2/run_sprint2.sh
+evidencias/sprint-3/run_sprint3.sh
+scripts/run_evidencias.sh
+# Pero sí permitir las plantillas de ejemplo
+!scripts/setup_completo.sh.example
+
 # Oracle
 *.dmp
 *.log
